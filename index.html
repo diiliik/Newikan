@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#202321">
+<title>NEWIKAN — двери и интерьерные решения</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topbar"><div class="wrap"><span data-i18n="topline">ДВЕРИ · ПАНЕЛИ · ИНТЕРЬЕРНЫЕ РЕШЕНИЯ</span><span>TASHKENT, UZBEKISTAN</span></div></div>
+<header><div class="wrap nav">
+<a class="logo" href="#"> <img src="images/madera_logo_horizont.png" imgfield="img" style="max-width: 150px; width: 150px; min-width: 150px; height: auto; display: block;" alt="NEWIKAN"><small>SPACE. MADE BETTER.</small></a>
+<nav class="navlinks"><a href="#catalog" data-i18n="navCatalog">Каталог</a><a href="#about" data-i18n="navAbout">О нас</a><a href="#showroom" data-i18n="navShowroom">Шоурум</a><a href="#contacts" data-i18n="navContacts">Контакты</a></nav>
+<div class="navright"><select class="lang" id="language" aria-label="Language"><option value="ru">RU</option><option value="uz">UZ</option><option value="en">EN</option></select><button class="cartbtn" id="openCart"><span data-i18n="cart">Корзина</span><span id="cartCount">0</span></button></div>
+</div></header>
+<main>
+<section class="hero"><div class="wrap"><div class="hero-grid">
+<div class="hero-copy"><p class="eyebrow" data-i18n="heroEyebrow">Архитектура вашего пространства</p><h1 data-i18n="heroTitle">Детали, которые создают интерьер.</h1><p data-i18n="heroText">Двери, декоративные панели и интерьерные конструкции, созданные для современных пространств.</p><div class="actions"><a class="btn" href="#catalog" data-i18n="heroCta">Смотреть каталог</a><a class="btn secondary" href="#contacts" data-i18n="heroContact">Связаться с нами</a></div></div>
+<div class="hero-art" role="img" aria-label="Интерьер с современной скрытой дверью"><img src="images/hero.jpg" alt="Интерьер с современной скрытой дверью NEWIKAN"><div class="art-caption"></div></div>
+</div></div></section>
+<section class="section news" id="news" hidden><div class="wrap"><h2 class="news-title" id="newsTitle"></h2><div class="slider-wrap"><button class="sl-arrow sl-prev" id="slPrev" aria-label="Назад">‹</button><div class="slider" id="slider"></div><button class="sl-arrow sl-next" id="slNext" aria-label="Вперёд">›</button></div><div class="dots" id="dots"></div></div></section>
+<section class="section" id="catalog"><div class="wrap">
+<div class="section-head"><div><p class="eyebrow" data-i18n="catalogEyebrow">Подборка NEWIKAN</p><h2 data-i18n="catalogTitle">Каталог продукции</h2></div><p data-i18n="catalogText">Выберите изделие и добавьте его в корзину. Для нестандартных размеров и отделки менеджер рассчитает стоимость индивидуально.</p></div>
+<div class="filters" id="filters"><button class="filter active" data-filter="all" data-i18n="filterAll">Все товары</button><button class="filter" data-filter="hidden" data-i18n="filterHidden">Скрытые двери</button><button class="filter" data-filter="mdf" data-i18n="filterMdf">Двери МДФ</button><button class="filter" data-filter="panel" data-i18n="filterPanels">Панели</button><button class="filter" data-filter="partition" data-i18n="filterPartitions">Перегородки</button></div>
+<div class="products" id="products"></div>
+</div></section>
+<section class="benefits" id="about"><div class="wrap"><div class="section-head"><div><p class="eyebrow" data-i18n="aboutEyebrow">Почему NEWIKAN</p><h2 data-i18n="aboutTitle">Продумано до детали.</h2></div></div><div class="benefit-grid">
+<div class="benefit"><span class="num">01 / DESIGN</span><h3 data-i18n="benefit1Title">Современный дизайн</h3><p data-i18n="benefit1Text">Чистые линии, спокойные оттенки и решения, которые поддерживают архитектуру интерьера.</p></div>
+<div class="benefit"><span class="num">02 / FIT</span><h3 data-i18n="benefit2Title">Под ваш проект</h3><p data-i18n="benefit2Text">Поможем подобрать размеры, отделку и сочетания под задачу вашего пространства.</p></div>
+<div class="benefit"><span class="num">03 / SUPPORT</span><h3 data-i18n="benefit3Title">Связь с менеджером</h3><p data-i18n="benefit3Text">Уточним наличие, сроки, доставку и итоговую стоимость до подтверждения заказа.</p></div>
+</div></div></section>
+<style>
+  .showroom-art { background: none !important; overflow: hidden; min-height: 320px; }
+  .showroom-art::before, .showroom-art::after { display: none !important; }
+  .showroom-art img { width: 70%; height: 70%; min-height: 320px; object-fit: cover; display: block; }
+</style>
+
+<section class="section" id="showroom"><div class="wrap showroom"><div class="showroom-art"><img src="images/konec.jpg" alt="Шоурум NEWIKAN"></div><div class="showroom-copy"><p class="eyebrow" data-i18n="showroomEyebrow">Посетите нас</p><h2 data-i18n="showroomTitle">Увидеть материалы вживую.</h2><p data-i18n="showroomText">Приходите в шоурум NEWIKAN в Ташкенте, чтобы оценить фактуры, оттенки и варианты сочетаний. Напишите нам, чтобы уточнить адрес и договориться о визите.</p><div class="contact-line"><span>WhatsApp: <a href="https://wa.me/998909772833" target="_blank" rel="noopener">+998 90 977 28 33</a></span><span>Telegram: <a href="https://t.me/Dilik_777" target="_blank" rel="noopener">@Dilik_777</a></span><span data-i18n="cityLine">Ташкент, Узбекистан</span></div><a class="btn" href="https://wa.me/998909772833" target="_blank" rel="noopener" data-i18n="showroomCta">Написать менеджеру</a></div></div></section>
+<section class="section" id="contacts"><div class="wrap"><div class="section-head"><div><p class="eyebrow" data-i18n="contactEyebrow">Остались вопросы?</p><h2 data-i18n="contactTitle">Обсудим ваш проект.</h2></div><p data-i18n="contactText">Оставьте заявку через WhatsApp или Telegram. Менеджер поможет с выбором, расчётом и оформлением заказа.</p></div><div class="actions"><a class="btn" href="https://wa.me/998909772833" target="_blank" rel="noopener">WhatsApp · +998 90 977 28 33</a><a class="btn secondary" href="https://t.me/Dilik_777" target="_blank" rel="noopener">Telegram · @Dilik_777</a></div></div></section>
+</main>
+ <!--footer--> 
+         <footer id="t-footer" class="t-records" data-hook="blocks-collection-content-node" data-tilda-project-id="3010010" data-tilda-page-id="14350067" data-tilda-page-alias="footer" data-tilda-formskey="cf9158afbf3315f08ab1751910365096" data-tilda-lazy="yes" data-tilda-root-zone="com" data-tilda-project-headcode="yes" data-tilda-project-country="RU">
+            <div id="rec597423179" class="r t-rec" style=" " data-animationappear="off" data-record-type="131">
+               <!-- T123 --> 
+               <div class="t123">
+                  <div class="t-container_100 ">
+                     <div class="t-width t-width_100 ">
+                        <!-- nominify begin --> 
+                        <div style="position:relative;overflow:hidden;"><a href="https://yandex.uz/maps/org/43321917957?si=cd8vzaddj507fftf5b4cty4538" style="color:#eee;font-size:12px;position:absolute;top:0px;">Madera Interior Line</a><a href="https://yandex.ru/maps/213/moscow/category/interior_goods/184108005/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:14px;">Товары для интерьера в Ташкенте</a><a href="https://yandex.ru/maps/213/moscow/category/claddings/184107723/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:28px;">Облицовочные материалы в Москве</a><iframe src="https://yandex.ru/map-widget/v1/?ll=69.2401,41.2995&mode=search&oid=43321917957&ol=biz&sll=69.2401,41.2995&sspn=0.015000,0.005000&z=17" width="100%" height="400" frameborder="1" allowfullscreen="true" style="position:relative;display:block;"></iframe></div>
+                        <!-- nominify end --> 
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <footer><div class="wrap footer-inner"><a class="logo" href="#" style="color:white">NEWIKAN<small>SPACE. MADE BETTER.</small></a><p>© <span id="year"></span> NEWIKAN<br><span data-i18n="footerText">Двери и интерьерные решения. Ташкент, Узбекистан.</span></p></div></footer>
+<div class="overlay" id="cartOverlay"><aside class="drawer" role="dialog" aria-modal="true" aria-label="Shopping cart"><div class="drawer-head"><h2 data-i18n="cartTitle">Ваша корзина</h2><button class="close" id="closeCart" data-i18n="close">Закрыть ✕</button></div><div class="cart-items" id="cartItems"></div><div class="cart-total"><div class="total-line"><span data-i18n="total">Итого по известным ценам</span><strong id="cartTotal">0 сум</strong></div><p class="notice" data-i18n="cartNotice">Товары с индивидуальной стоимостью будут рассчитаны менеджером. Заказ отправляется в WhatsApp — оплата на сайте пока не подключена.</p><form class="checkout" id="checkout"><input id="customerName" required placeholder="Ваше имя" data-placeholder="name"><input id="customerPhone" required placeholder="Номер телефона" data-placeholder="phone"><select id="customerLang"><option value="ru">Русский</option><option value="uz">O‘zbekcha</option><option value="en">English</option></select><textarea id="customerNote" placeholder="Комментарий к заказу (размеры, цвет и т. д.)" data-placeholder="note"></textarea><button class="btn" type="submit" data-i18n="sendOrder">Отправить заявку менеджеру</button></form></div></aside></div>
+<div class="toast" id="toast"></div>
+<script src="catalog-data.js"></script>
+<script src="common.js"></script>
+ <div class='t396__elem tn-elem tn-elem__5506882421676373567313' data-elem-id='1676373567313' data-elem-type='text' data-field-top-value="201" data-field-left-value="0" data-field-height-value="19" data-field-width-value="221" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-textfit-value="autoheight" data-field-fontsize-value="12" data-field-top-res-640-value="151" data-field-left-res-640-value="30">
+                        <div class='tn-atom' field='tn_text_1676373567313'>© 2026 NEWIKAN</div>
+                     </div>
+                     <div class='t396__elem tn-elem tn-elem__5506882421676373744264' data-elem-id='1676373744264' data-elem-type='html' data-field-top-value="325" data-field-left-value="0" data-field-height-value="170" data-field-width-value="181" data-field-axisy-value="top" data-field-axisx-value="left" data-field-container-value="grid" data-field-topunits-value="px" data-field-leftunits-value="px" data-field-heightunits-value="px" data-field-widthunits-value="px" data-field-top-res-320-value="1032" data-field-left-res-320-value="0" data-field-height-res-320-value="79" data-field-width-res-320-value="144" data-field-top-res-640-value="530" data-field-left-res-640-value="30">
+                        <div class='tn-atom tn-atom__html'>
+                           <iframe src="https://yandex.uz/sprav/widget/rating-badge/43321917957" width="150" height="50" frameborder="0" class="badje"></iframe> 
+                           <style>iframe{display:none;}.badje{display:block;}</style>
+                        </div>
+                     </div>
+                     <script>
+let filter="all";
+function cardHTML(p,cls){
+ const u=productUrl(p),n=esc(tr(p.name));
+ return `<article class="product ${cls||""}" data-type="${p.type}"><a class="pv-link" href="${u}" aria-label="${n}">${visualHTML(p)}${p.isNew?`<span class="badge-new">${t("badgeNew")}</span>`:""}</a><div class="product-body"><h3><a href="${u}">${n}</a></h3><div class="product-desc">${esc(tr(p.desc))}</div><div class="card-price">${cardPrice(p)}</div><a class="more" href="${u}">${t("details")}</a></div></article>`;
+}
+const esc=s=>String(s??"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+function renderPage(){
+ const items=products.filter(p=>filter==="all"||p.category===filter);
+ $("products").innerHTML=items.map(p=>cardHTML(p)).join("")||`<p>${t("noProducts")}</p>`;
+ renderSlider();
+}
+function slideStep(){const s=$("slider").querySelector(".slide");return s?s.getBoundingClientRect().width+28:300}
+function renderSlider(){
+ const news=products.filter(p=>p.isNew);
+ $("news").hidden=!news.length;if(!news.length)return;
+ $("newsTitle").textContent=t("newsTitle");
+ $("slider").innerHTML=news.map(p=>cardHTML(p,"slide")).join("");
+ $("dots").innerHTML=news.map((_,i)=>`<button data-i="${i}" aria-label="${i+1}"></button>`).join("");
+ updateDots();
+}
+function updateDots(){
+ const s=$("slider"),can=s.scrollWidth>s.clientWidth+4;
+ $("slPrev").hidden=$("slNext").hidden=$("dots").hidden=!can;
+ const i=Math.round(s.scrollLeft/(slideStep()||1));
+ document.querySelectorAll("#dots button").forEach((d,k)=>d.classList.toggle("on",k===i));
+}
+$("slPrev").addEventListener("click",()=>$("slider").scrollBy({left:-slideStep(),behavior:"smooth"}));
+$("slNext").addEventListener("click",()=>$("slider").scrollBy({left:slideStep(),behavior:"smooth"}));
+$("slider").addEventListener("scroll",updateDots);
+window.addEventListener("resize",updateDots);
+$("dots").addEventListener("click",e=>{const b=e.target.closest("button[data-i]");if(b)$("slider").scrollTo({left:+b.dataset.i*slideStep(),behavior:"smooth"})});
+$("filters").addEventListener("click",e=>{const b=e.target.closest("button[data-filter]");if(!b)return;filter=b.dataset.filter;document.querySelectorAll(".filter").forEach(x=>x.classList.toggle("active",x===b));renderPage()});
+initSite();
+</script>
+</body>
+</html>

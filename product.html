@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#202321">
+<title>NEWIKAN</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topbar"><div class="wrap"><span data-i18n="topline">ДВЕРИ · ПАНЕЛИ · ИНТЕРЬЕРНЫЕ РЕШЕНИЯ</span><span>TASHKENT, UZBEKISTAN</span></div></div>
+<header><div class="wrap nav">
+<a class="logo" href="index.html">NEWIKAN<small>SPACE. MADE BETTER.</small></a>
+<nav class="navlinks"><a href="index.html#catalog" data-i18n="navCatalog">Каталог</a><a href="index.html#about" data-i18n="navAbout">О нас</a><a href="index.html#showroom" data-i18n="navShowroom">Шоурум</a><a href="index.html#contacts" data-i18n="navContacts">Контакты</a></nav>
+<div class="navright"><select class="lang" id="language" aria-label="Language"><option value="ru">RU</option><option value="uz">UZ</option><option value="en">EN</option></select><button class="cartbtn" id="openCart"><span data-i18n="cart">Корзина</span><span id="cartCount">0</span></button></div>
+</div></header>
+<main><section class="section product-page"><div class="wrap" id="productPage"></div></section></main>
+<footer><div class="wrap footer-inner"><a class="logo" href="index.html" style="color:white">NEWIKAN<small>SPACE. MADE BETTER.</small></a><p>© <span id="year"></span> NEWIKAN<br><span data-i18n="footerText">Двери и интерьерные решения. Ташкент, Узбекистан.</span></p></div></footer>
+<div class="overlay" id="cartOverlay"><aside class="drawer" role="dialog" aria-modal="true" aria-label="Shopping cart"><div class="drawer-head"><h2 data-i18n="cartTitle">Ваша корзина</h2><button class="close" id="closeCart" data-i18n="close">Закрыть ✕</button></div><div class="cart-items" id="cartItems"></div><div class="cart-total"><div class="total-line"><span data-i18n="total">Итого по известным ценам</span><strong id="cartTotal">0 сум</strong></div><p class="notice" data-i18n="cartNotice">Товары с индивидуальной стоимостью будут рассчитаны менеджером. Заказ отправляется в WhatsApp — оплата на сайте пока не подключена.</p><form class="checkout" id="checkout"><input id="customerName" required placeholder="Ваше имя" data-placeholder="name"><input id="customerPhone" required placeholder="Номер телефона" data-placeholder="phone"><select id="customerLang"><option value="ru">Русский</option><option value="uz">O‘zbekcha</option><option value="en">English</option></select><textarea id="customerNote" placeholder="Комментарий к заказу (размеры, цвет и т. д.)" data-placeholder="note"></textarea><button class="btn" type="submit" data-i18n="sendOrder">Отправить заявку менеджеру</button></form></div></aside></div>
+<div class="toast" id="toast"></div>
+<script src="catalog-data.js"></script>
+<script src="common.js"></script>
+<script>
+let LB=[],LBI=0;
+function openLB(i){LBI=i;drawLB()}
+function drawLB(){
+ let o=document.getElementById("lb");
+ if(!o){o=document.createElement("div");o.id="lb";o.className="lb";document.body.appendChild(o);
+  o.addEventListener("click",e=>{if(e.target.closest(".prev")){LBI=(LBI-1+LB.length)%LB.length;drawLB()}else if(e.target.closest(".next")){LBI=(LBI+1)%LB.length;drawLB()}else closeLB()})}
+ o.innerHTML=`<img src="${LB[LBI]}" alt="">${LB.length>1?'<button class="prev" aria-label="prev">‹</button><button class="next" aria-label="next">›</button>':""}`;
+}
+function closeLB(){const o=document.getElementById("lb");if(o)o.remove()}
+document.addEventListener("keydown",e=>{if(!document.getElementById("lb"))return;if(e.key==="Escape")closeLB();if(e.key==="ArrowLeft"){LBI=(LBI-1+LB.length)%LB.length;drawLB()}if(e.key==="ArrowRight"){LBI=(LBI+1)%LB.length;drawLB()}});
+function renderPage(){
+ const root=$("productPage");
+ const id=new URLSearchParams(location.search).get("id");
+ const p=products.find(x=>x.id===id);
+ if(!p){root.innerHTML=`<div class="pp-wrap"><a class="back" href="index.html#catalog">${t("backToCatalog")}</a><p>${t("notFound")}</p></div>`;return}
+ document.title=tr(p.name)+" — NEWIKAN";
+ LB=[p.image,...(p.gallery||[])].filter(Boolean);
+ const alt=esc(tr(p.name));
+ const gallery=LB.length
+  ?`<img class="pp-hero" src="${LB[0]}" alt="${alt}" onclick="openLB(0)">`+(LB.length>1?`<div class="pp-more">${LB.slice(1).map((s,i)=>`<img src="${s}" alt="${alt}" loading="lazy" onclick="openLB(${i+1})">`).join("")}</div>`:"")
+  :`<div class="pp-ph">${visualHTML(p,"")}</div>`;
+ const text=richText(tr(p.longDesc)||tr(p.desc));
+ const vs=p.variants||[];
+ const variants=vs.length?`<div class="variants"><h2>${t("variantsTitle")}</h2>${vs.map(v=>`<div class="variant"><div class="vimg">${v.image?`<img src="${v.image}" alt="${esc(tr(v.name))}" loading="lazy">`:""}</div><div class="vname">${esc(tr(v.name))}</div><div class="price">${v.price?money(v.price)+"<small>"+t("each")+"</small>":t("custom")}</div><button class="add" onclick="addToCart('${v.id}')">+ ${t("addToCartBtn")}</button></div>`).join("")}</div>`:"";
+ root.innerHTML=`<div class="pp-wrap"><a class="back" href="index.html#catalog">${t("backToCatalog")}</a>
+ <div class="pp-head"><div class="product-meta">${typeLabel(p)}</div><h1>${alt}</h1></div>
+ ${gallery}
+ <div class="pp-body"><h2>${t("ppAbout")}</h2><div class="pp-text">${text}</div>
+  <div class="pp-buy"><div class="pp-price">${priceHTML(p)}</div><div class="actions">${vs.length?"":`<button class="btn" onclick="addToCart('${p.id}')">+ ${t("addToCartBtn")}</button>`}<a class="btn secondary" href="${waLink(p)}" target="_blank" rel="noopener">${t("askManager")}</a></div></div></div>
+ ${variants}</div>`;
+ fixPreviewLinks();
+}
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+initSite();
+</script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Редактор каталога NEWIKAN</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body{padding-bottom:60px}
+.ad-top{background:var(--ink);color:#fff;position:sticky;top:0;z-index:20}
+.ad-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 0;flex-wrap:wrap}
+.ad-sub{font-size:12px;color:#c9cbc4;margin-top:4px}
+.ad-actions{display:flex;gap:10px;flex-wrap:wrap}
+.ad-top .btn{background:var(--accent);color:var(--ink);font-weight:600}
+.ad-top .btn.secondary{background:transparent;color:#fff;border:1px solid #8a8f88}
+.ad-main{display:grid;grid-template-columns:300px 1fr;gap:24px;margin-top:24px;align-items:start}
+.ad-list{display:flex;flex-direction:column;gap:8px}
+.ad-item{display:grid;grid-template-columns:52px 1fr auto;gap:10px;align-items:center;background:#fff;border:1px solid var(--line);padding:8px;cursor:pointer;text-align:left}
+.ad-item.on{border-color:var(--ink);box-shadow:inset 3px 0 0 var(--ink)}
+.ad-item .th{width:52px;height:44px;background:linear-gradient(140deg,#e6e3da,#d1cbbd);overflow:hidden}.ad-item .th img{width:100%;height:100%;object-fit:cover;display:block}
+.ad-item b{display:block;font-size:14px;font-weight:600}.ad-item small{color:var(--muted);font-size:12px}
+.ad-mv{display:flex;flex-direction:column;gap:2px}.ad-mv span{font-size:11px;border:1px solid var(--line);padding:0 5px;line-height:16px;background:#f5f4f0}
+.ad-link{background:none;border:0;color:var(--muted);text-decoration:underline;font-size:12px;margin-top:10px;text-align:left;padding:0}
+.ad-edit{background:#fff;border:1px solid var(--line);padding:22px}
+.ad-edit h2{margin:0 0 16px;font-size:22px;font-weight:500}.ad-edit h3{margin:26px 0 10px;font-size:16px;font-weight:600}
+.ad-edit label{display:block;font-size:12px;color:var(--muted);margin-bottom:12px;letter-spacing:.03em}
+.ad-edit input,.ad-edit select,.ad-edit textarea{display:block;width:100%;margin-top:5px;padding:11px;border:1px solid #cfd1ca;background:#fff;color:var(--ink);font-size:15px}
+.ad-edit input[type=checkbox]{display:inline-block;width:auto;margin:0 8px 0 0}
+.ad-edit label.chk{color:var(--ink);font-size:14px}
+.ad-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ad-btn{border:1px solid #b9bcb5;background:#fff;color:var(--ink);padding:10px 13px;font-size:13px}
+.ad-btn.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
+.ad-btn.danger{color:#a33;border-color:#d9b3b3}
+.ad-photos{display:grid;grid-template-columns:260px 1fr;gap:18px;align-items:start}
+.ad-main-ph .pv{height:200px;background:linear-gradient(140deg,#e6e3da,#d1cbbd);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;overflow:hidden;margin-bottom:8px}
+.ad-main-ph .pv img{width:100%;height:100%;object-fit:cover}
+.ad-main-ph .row{display:flex;gap:8px;flex-wrap:wrap}
+.ad-gal{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-start}
+.ad-gal .g{position:relative;width:104px;height:84px;background:#e6e3da}.ad-gal .g img{width:100%;height:100%;object-fit:cover;display:block}
+.ad-gal .g button{position:absolute;top:3px;right:3px;border:0;background:rgba(32,35,33,.8);color:#fff;width:22px;height:22px;font-size:12px;line-height:22px;padding:0}
+.ad-var{border:1px solid var(--line);padding:10px;margin-bottom:10px;background:#faf9f6}
+.ad-var .r{display:grid;grid-template-columns:72px 1fr 170px auto;gap:10px;align-items:center}
+.ad-var .vph{width:72px;height:56px;border:1px dashed #b9bcb5;background:#fff;color:var(--muted);font-size:11px;padding:0;overflow:hidden}.ad-var .vph img{width:100%;height:100%;object-fit:cover;display:block}
+.ad-var input{margin-top:0!important}
+details{margin-top:8px;font-size:13px}summary{cursor:pointer;color:var(--muted)}
+.ad-calc{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:8px}.ad-calc input{width:170px!important;margin:0!important;font-size:14px!important}.ad-calc small{color:var(--muted);flex-basis:100%}
+.ad-help{background:#fff;border:1px solid var(--line);padding:18px 22px;margin-top:24px;font-size:14px;line-height:1.7;color:#4c524c}
+.ad-help ol{margin:8px 0 0;padding-left:20px}
+@media(max-width:800px){.ad-main{grid-template-columns:1fr}.ad-grid2,.ad-photos{grid-template-columns:1fr}.ad-var .r{grid-template-columns:64px 1fr auto}.ad-var .r input[data-num]{grid-column:2/3}}
+</style>
+</head>
+<body>
+<div class="ad-top"><div class="wrap ad-bar">
+ <div><strong style="letter-spacing:.08em">NEWIKAN · РЕДАКТОР КАТАЛОГА</strong><div class="ad-sub" id="status">Загрузка…</div></div>
+ <div class="ad-actions"><button class="btn secondary" id="btnPreview">Предпросмотр сайта</button><button class="btn" id="btnExport">Скачать обновление (ZIP)</button></div>
+</div></div>
+
+<div class="wrap ad-main">
+ <aside class="ad-list"><div id="list" class="ad-list"></div><button class="btn" id="addProduct">＋ Добавить товар</button><button class="ad-link" id="btnReset">Сбросить все мои изменения</button></aside>
+ <section class="ad-edit" id="editor"></section>
+</div>
+
+<div class="wrap"><div class="ad-help"><strong>Как это работает</strong>
+ <ol>
+  <li>Выбираете товар слева и меняете название, цену, фото, добавляете модели. Всё сохраняется само — в этом браузере.</li>
+  <li>Нажмите «Предпросмотр сайта», чтобы увидеть, как будет выглядеть сайт с вашими правками.</li>
+  <li>Нажмите «Скачать обновление (ZIP)», распакуйте архив в папку сайта (с заменой файлов) и загрузите папку на хостинг. Тогда правки увидят все посетители.</li>
+ </ol>
+ Файл admin.html можно не загружать на хостинг — он нужен только вам.</div></div>
+
+<script src="catalog-data.js"></script>
+<script>
+const TYPES=[["hidden","Скрытые двери"],["mdf","Двери МДФ"],["panel","Панели"],["partition","Перегородки"]];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const fmt=n=>new Intl.NumberFormat("ru-RU").format(n);
+const clone=o=>JSON.parse(JSON.stringify(o));
+let state=[],sel=0,saveT=null;
+
+/* ---------- хранилище черновика ---------- */
+function nkDB(){return new Promise((res,rej)=>{const r=indexedDB.open("nk_admin",1);r.onupgradeneeded=()=>r.result.createObjectStore("kv");r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function nkGet(k){const db=await nkDB();return new Promise((res,rej)=>{const q=db.transaction("kv").objectStore("kv").get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}
+async function nkSet(k,v){const db=await nkDB();return new Promise((res,rej)=>{const t=db.transaction("kv","readwrite");t.objectStore("kv").put(v,k);t.oncomplete=()=>res();t.onerror=()=>rej(t.error)})}
+async function nkDel(k){const db=await nkDB();return new Promise((res,rej)=>{const t=db.transaction("kv","readwrite");t.objectStore("kv").delete(k);t.oncomplete=()=>res();t.onerror=()=>rej(t.error)})}
+
+function setStatus(m){$("status").textContent=m}
+function norm(p){
+ for(const k of ["name","desc"]){if(!p[k]||typeof p[k]!=="object")p[k]={ru:p[k]||"",uz:"",en:""};p[k].ru=p[k].ru||"";p[k].uz=p[k].uz||"";p[k].en=p[k].en||""}
+ if(!p.longDesc||typeof p.longDesc!=="object")p.longDesc={ru:p.longDesc||"",uz:"",en:""};p.longDesc.ru=p.longDesc.ru||"";p.longDesc.uz=p.longDesc.uz||"";p.longDesc.en=p.longDesc.en||"";
+ p.isNew=!!p.isNew;
+ p.type=p.type||"panel";p.category=p.type;p.price=p.price||null;p.priceFrom=!!p.priceFrom;p.image=p.image||"";p.gallery=p.gallery||[];
+ p.variants=(p.variants||[]).map(v=>{if(!v.name||typeof v.name!=="object")v.name={ru:v.name||"",uz:"",en:""};v.name.ru=v.name.ru||"";v.name.uz=v.name.uz||"";v.name.en=v.name.en||"";v.price=v.price||null;v.image=v.image||"";return v});
+ return p;
+}
+function save(){
+ setStatus("Сохранение…");clearTimeout(saveT);
+ saveT=setTimeout(flush,350);
+}
+async function flush(){
+ clearTimeout(saveT);
+ try{await nkSet("draft",clone(state));const d=new Date();setStatus("Черновик сохранён в этом браузере · "+d.toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"})+" · чтобы правки попали на сайт, скачайте ZIP")}
+ catch(e){setStatus("Не удалось сохранить черновик (мало места в браузере). Скачайте ZIP, чтобы не потерять правки.")}
+}
+
+/* ---------- список товаров ---------- */
+function renderList(){
+ $("list").innerHTML=state.map((p,i)=>`<div class="ad-item ${i===sel?"on":""}" data-pick="${i}"><div class="th">${p.image?`<img src="${esc(p.image)}" alt="">`:""}</div><div><b>${esc(p.name.ru||"Без названия")}</b><small>${p.price?fmt(p.price)+" сум":(p.variants.length?p.variants.length+" мод.":"Цена по запросу")}</small></div><div class="ad-mv"><span data-mv="-1" data-i="${i}">↑</span><span data-mv="1" data-i="${i}">↓</span></div></div>`).join("");
+}
+
+/* ---------- редактор ---------- */
+function calcBlock(v){return `<details><summary>Посчитать цену: себестоимость + наценка</summary><div class="ad-calc"><input type="number" min="0" class="c-cost" placeholder="Себестоимость, сум"><input type="number" min="0" class="c-pct" placeholder="Наценка, %"><button type="button" class="ad-btn" data-act="calc" data-v="${v}">Подставить цену</button><small>Себестоимость нигде не сохраняется и на сайт не попадает — туда попадёт только итоговая цена.</small></div></details>`}
+function renderEditor(){
+ const p=state[sel],root=$("editor");
+ if(!p){root.innerHTML="<p>Товаров нет. Нажмите «＋ Добавить товар».</p>";return}
+ root.innerHTML=`
+ <h2>${esc(p.name.ru||"Новый товар")}</h2>
+ <div class="ad-grid2">
+  <label>Название<input data-f="name.ru" value="${esc(p.name.ru)}"></label>
+  <label>Раздел каталога<select data-f="type">${TYPES.map(([k,l])=>`<option value="${k}" ${p.type===k?"selected":""}>${l}</option>`).join("")}</select></label>
+ </div>
+ <label>Короткое описание (на карточке в каталоге)<textarea rows="2" data-f="desc.ru">${esc(p.desc.ru)}</textarea></label>
+ <label>Подробное описание (на странице товара, под фото): что это, из чего, преимущества<textarea rows="8" data-f="longDesc.ru" placeholder="Пишите абзацами, между абзацами — пустая строка.&#10;&#10;Строки, которые начинаются с «- », станут списком:&#10;- Размер: 800×2000 мм&#10;- Материал: МДФ">${esc(p.longDesc.ru)}</textarea></label>
+ <div class="ad-grid2">
+  <div><label>Цена, сум (пусто = «Цена по запросу»)<input type="number" min="0" step="1000" inputmode="numeric" data-f="price" data-num value="${p.price??""}"></label>
+  <label class="chk"><input type="checkbox" data-f="isNew" ${p.isNew?"checked":""}>Новинка (красный бейдж «Новинка!» и показ в слайдере «Новинки»)</label>
+  <label class="chk"><input type="checkbox" data-f="priceFrom" ${p.priceFrom?"checked":""}>Показывать «от …»</label>${calcBlock(-1)}</div>
+  <div style="font-size:12px;color:var(--muted);line-height:1.6">Если ниже добавлены модели с ценами, цену товара можно не указывать — на карточке автоматически будет «от» минимальной цены.</div>
+ </div>
+ <details><summary>Названия и описание на узбекском и английском (необязательно)</summary>
+  <div class="ad-grid2" style="margin-top:10px"><label>Название UZ<input data-f="name.uz" value="${esc(p.name.uz)}"></label><label>Название EN<input data-f="name.en" value="${esc(p.name.en)}"></label>
+  <label>Короткое описание UZ<textarea rows="2" data-f="desc.uz">${esc(p.desc.uz)}</textarea></label><label>Короткое описание EN<textarea rows="2" data-f="desc.en">${esc(p.desc.en)}</textarea></label>
+  <label>Подробное описание UZ<textarea rows="5" data-f="longDesc.uz">${esc(p.longDesc.uz)}</textarea></label><label>Подробное описание EN<textarea rows="5" data-f="longDesc.en">${esc(p.longDesc.en)}</textarea></label></div>
+  <small style="color:var(--muted)">Если пусто, на этих языках покажется русский текст.</small></details>
+
+ <h3>Фото товара</h3>
+ <div class="ad-photos">
+  <div class="ad-main-ph"><div class="pv">${p.image?`<img src="${esc(p.image)}" alt="">`:"Фото не выбрано"}</div>
+   <div class="row"><button class="ad-btn dark" data-act="pick-main">${p.image?"Заменить фото":"Выбрать главное фото"}</button>${p.image?`<button class="ad-btn" data-act="clear-main">Убрать</button>`:""}</div></div>
+  <div><div style="font-size:12px;color:var(--muted);margin-bottom:8px">Дополнительные фото (на странице товара они тоже будут большими, под главным)</div>
+   <div class="ad-gal">${p.gallery.map((s,i)=>`<div class="g"><img src="${esc(s)}" alt=""><button data-act="del-gal" data-i="${i}" title="Удалить">✕</button></div>`).join("")}<button class="ad-btn" data-act="add-gal">＋ Добавить фото</button></div></div>
+ </div>
+
+ <h3>Модели / варианты (размеры, цвета, серии) — у каждой своя цена и фото</h3>
+ ${p.variants.map((v,i)=>`<div class="ad-var"><div class="r">
+   <button class="vph" data-act="pick-var" data-v="${i}">${v.image?`<img src="${esc(v.image)}" alt="">`:"＋ фото"}</button>
+   <input data-v="${i}" data-f="name.ru" value="${esc(v.name.ru)}" placeholder="Например: Белая, 800×2000 мм">
+   <input type="number" min="0" step="1000" inputmode="numeric" data-v="${i}" data-f="price" data-num value="${v.price??""}" placeholder="Цена, сум">
+   <button class="ad-btn danger" data-act="del-var" data-v="${i}" title="Удалить модель">✕</button></div>${calcBlock(i)}</div>`).join("")}
+ <button class="ad-btn dark" data-act="add-var">＋ Добавить модель</button>
+
+ <div style="margin-top:30px;padding-top:16px;border-top:1px solid var(--line)"><button class="ad-btn danger" data-act="del-product">Удалить этот товар</button></div>`;
+}
+
+function setPath(o,path,val){const k=path.split(".");let t=o;for(let i=0;i<k.length-1;i++)t=t[k[i]];t[k[k.length-1]]=val}
+$("editor").addEventListener("input",e=>{
+ const el=e.target,f=el.dataset.f;if(!f)return;
+ const p=state[sel];const obj=el.dataset.v!==undefined?p.variants[+el.dataset.v]:p;
+ let val=el.type==="checkbox"?el.checked:el.value;
+ if(el.dataset.num!==undefined)val=el.value===""?null:Math.max(0,Math.round(+el.value));
+ setPath(obj,f,val);if(f==="type")p.category=val;
+ if(f==="name.ru"&&el.dataset.v===undefined)document.querySelector("#editor h2").textContent=val||"Новый товар";
+ save();renderList();
+});
+
+/* ---------- фото ---------- */
+function pickImages(multiple){return new Promise(res=>{const i=document.createElement("input");i.type="file";i.accept="image/*";i.multiple=!!multiple;i.onchange=()=>res([...i.files]);i.click()})}
+function processImage(file){return new Promise((res,rej)=>{
+ const url=URL.createObjectURL(file),im=new Image();
+ im.onload=()=>{const M=1600;let w=im.naturalWidth,h=im.naturalHeight;const k=Math.min(1,M/Math.max(w,h));w=Math.round(w*k);h=Math.round(h*k);
+  const c=document.createElement("canvas");c.width=w;c.height=h;const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,w,h);x.drawImage(im,0,0,w,h);URL.revokeObjectURL(url);res(c.toDataURL("image/jpeg",.86))};
+ im.onerror=()=>{URL.revokeObjectURL(url);rej(new Error("bad"))};im.src=url})}
+async function readFiles(files){const out=[];for(const f of files){try{out.push(await processImage(f))}catch(e){alert("Не удалось прочитать файл «"+f.name+"». Сохраните фото как JPG или PNG и попробуйте снова.")}}return out}
+
+$("editor").addEventListener("click",async e=>{
+ const b=e.target.closest("[data-act]");if(!b)return;
+ const act=b.dataset.act,p=state[sel],vi=b.dataset.v!==undefined?+b.dataset.v:-1;
+ if(act==="pick-main"){const fs=await pickImages(false);if(!fs.length)return;setStatus("Обработка фото…");const r=await readFiles(fs);if(r[0])p.image=r[0];save();renderEditor();renderList()}
+ else if(act==="clear-main"){p.image="";save();renderEditor();renderList()}
+ else if(act==="add-gal"){const fs=await pickImages(true);if(!fs.length)return;setStatus("Обработка фото…");p.gallery.push(...await readFiles(fs));save();renderEditor()}
+ else if(act==="del-gal"){p.gallery.splice(+b.dataset.i,1);save();renderEditor()}
+ else if(act==="pick-var"){const fs=await pickImages(false);if(!fs.length)return;setStatus("Обработка фото…");const r=await readFiles(fs);if(r[0])p.variants[vi].image=r[0];save();renderEditor()}
+ else if(act==="add-var"){p.variants.push({id:"v"+Date.now().toString(36)+Math.random().toString(36).slice(2,5),name:{ru:"",uz:"",en:""},price:null,image:""});save();renderEditor();renderList()}
+ else if(act==="del-var"){if(confirm("Удалить эту модель?")){p.variants.splice(vi,1);save();renderEditor();renderList()}}
+ else if(act==="calc"){const box=b.closest(".ad-calc"),cost=+box.querySelector(".c-cost").value,pct=+box.querySelector(".c-pct").value||0;
+  if(!cost){alert("Впишите себестоимость.");return}
+  const obj=vi>=0?p.variants[vi]:p;obj.price=Math.round(cost*(1+pct/100));save();renderEditor();renderList()}
+ else if(act==="del-product"){if(confirm("Удалить товар «"+(p.name.ru||"без названия")+"» целиком?")){state.splice(sel,1);sel=Math.max(0,sel-1);save();renderList();renderEditor()}}
+});
+$("list").addEventListener("click",e=>{
+ const mv=e.target.closest("[data-mv]");
+ if(mv){e.stopPropagation();const i=+mv.dataset.i,j=i+ +mv.dataset.mv;if(j<0||j>=state.length)return;[state[i],state[j]]=[state[j],state[i]];if(sel===i)sel=j;else if(sel===j)sel=i;save();renderList();return}
+ const it=e.target.closest("[data-pick]");if(it){sel=+it.dataset.pick;renderList();renderEditor()}
+});
+$("addProduct").addEventListener("click",()=>{
+ state.push(norm({id:"n"+Date.now().toString(36),type:"panel",name:{ru:"Новый товар"},desc:{ru:""},price:null}));
+ sel=state.length-1;save();renderList();renderEditor();window.scrollTo({top:0,behavior:"smooth"});
+});
+$("btnReset").addEventListener("click",async()=>{
+ if(!confirm("Сбросить все ваши правки и вернуть каталог из файла catalog-data.js?"))return;
+ await nkDel("draft");state=clone(window.__orig).map(norm);sel=0;renderList();renderEditor();setStatus("Правки сброшены.");
+});
+$("btnPreview").addEventListener("click",async()=>{await flush();window.open("index.html?preview=1","_blank")});
+
+/* ---------- ZIP ---------- */
+const CRC_T=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+function crc32(b){let c=0xFFFFFFFF;for(let i=0;i<b.length;i++)c=CRC_T[(c^b[i])&255]^(c>>>8);return (c^0xFFFFFFFF)>>>0}
+function makeZip(files){
+ const enc=new TextEncoder(),parts=[],cd=[];let off=0,cdSize=0;
+ for(const f of files){
+  const name=enc.encode(f.name),crc=crc32(f.data),size=f.data.length;
+  const lh=new DataView(new ArrayBuffer(30));
+  lh.setUint32(0,0x04034b50,true);lh.setUint16(4,20,true);lh.setUint16(6,0x0800,true);lh.setUint16(8,0,true);lh.setUint16(10,0,true);lh.setUint16(12,0x21,true);lh.setUint32(14,crc,true);lh.setUint32(18,size,true);lh.setUint32(22,size,true);lh.setUint16(26,name.length,true);lh.setUint16(28,0,true);
+  parts.push(lh.buffer,name,f.data);
+  const ch=new DataView(new ArrayBuffer(46));
+  ch.setUint32(0,0x02014b50,true);ch.setUint16(4,20,true);ch.setUint16(6,20,true);ch.setUint16(8,0x0800,true);ch.setUint16(10,0,true);ch.setUint16(12,0,true);ch.setUint16(14,0x21,true);ch.setUint32(16,crc,true);ch.setUint32(20,size,true);ch.setUint32(24,size,true);ch.setUint16(28,name.length,true);ch.setUint32(42,off,true);
+  cd.push(ch.buffer,name);cdSize+=46+name.length;off+=30+name.length+size;
+ }
+ const end=new DataView(new ArrayBuffer(22));
+ end.setUint32(0,0x06054b50,true);end.setUint16(8,files.length,true);end.setUint16(10,files.length,true);end.setUint32(12,cdSize,true);end.setUint32(16,off,true);
+ return new Blob([...parts,...cd,end.buffer],{type:"application/zip"});
+}
+function dataToBytes(d){const s=atob(d.split(",")[1]),u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return u}
+const slug=s=>String(s||"item").replace(/[^a-z0-9_-]/gi,"-").slice(0,40);
+async function exportZip(){
+ await flush();
+ const files=[],data=clone(state);
+ const conv=(src,base)=>{
+  if(!src||!src.startsWith("data:"))return src;
+  const bytes=dataToBytes(src),name=`images/${slug(base)}-${crc32(bytes).toString(16).padStart(8,"0")}.jpg`;
+  if(!files.some(f=>f.name===name))files.push({name,data:bytes});return name};
+ for(const p of data){p.image=conv(p.image,p.id);p.gallery=p.gallery.map(s=>conv(s,p.id));for(const v of p.variants)v.image=conv(v.image,v.id)}
+ const js="/* NEWIKAN — каталог. Файл создан редактором admin.html; при желании его можно править и вручную. */\nlet products="+JSON.stringify(data,null,1)+";\n";
+ files.unshift({name:"catalog-data.js",data:new TextEncoder().encode(js)});
+ const blob=makeZip(files),a=document.createElement("a");
+ a.href=URL.createObjectURL(blob);a.download="newikan-site-update.zip";document.body.appendChild(a);a.click();a.remove();
+ setStatus("Архив скачан: распакуйте его в папку сайта с заменой файлов и загрузите на хостинг.");
+}
+$("btnExport").addEventListener("click",exportZip);
+
+/* ---------- старт ---------- */
+(async()=>{
+ window.__orig=clone(products);
+ let d=null;try{d=await nkGet("draft")}catch(e){}
+ state=(d&&d.length?d:clone(products)).map(norm);
+ renderList();renderEditor();
+ setStatus(d&&d.length?"Загружен ваш сохранённый черновик":"Каталог загружен. Правки сохраняются автоматически в этом браузере.");
+})();
+</script>
+</body>
+</html>
